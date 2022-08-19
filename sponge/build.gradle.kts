@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     compileOnly(project(":lanbroadcaster-common"))
+    compileOnly(project(":lanbroadcaster-log4j"))
     compileOnly("org.spongepowered:spongeapi:8.1.0-SNAPSHOT")
 }
 

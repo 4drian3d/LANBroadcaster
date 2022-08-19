@@ -12,7 +12,7 @@ import com.google.inject.Inject;
 
 import me.bhop.lanbroadcaster.common.LANBroadcaster;
 import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
-import me.bhop.lanbroadcaster.sponge.logger.Log4JLogger;
+import me.bhop.lanbroadcaster.log4j.Log4JLogger;
 
 import java.net.InetSocketAddress;
 import java.util.Optional;

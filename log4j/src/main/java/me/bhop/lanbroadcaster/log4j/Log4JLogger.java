@@ -1,8 +1,8 @@
-package me.bhop.lanbroadcaster.sponge.logger;
-
-import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
+package me.bhop.lanbroadcaster.log4j;
 
 import org.apache.logging.log4j.Logger;
+
+import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
 
 public class Log4JLogger implements AbstractLogger {
     private final Logger logger;
@@ -40,5 +40,4 @@ public class Log4JLogger implements AbstractLogger {
     public void error(String string, Throwable t) {
         logger.error(string, t);
     }
-    
 }

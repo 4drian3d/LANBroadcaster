@@ -19,9 +19,14 @@ allprojects {
     java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     shadow(project(":lanbroadcaster-common"))
     shadow(project(":lanbroadcaster-slf4j"))
+    shadow(project(":lanbroadcaster-log4j"))
     shadow(project(":lanbroadcaster-sponge"))
     shadow(project(":lanbroadcaster-velocity"))
     shadow(project(":lanbroadcaster-bukkit"))
@@ -33,6 +38,12 @@ tasks {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         archiveFileName.set("LanBroadcaster.jar")
         configurations = listOf(project.configurations.shadow.get())
+
+        // Bypass Krypton java 17
+        val buildTask = project(":lanbroadcaster-krypton").tasks.named("jar")
+        dependsOn(buildTask)
+        
+        from(zipTree(buildTask.map {out -> out.outputs.files.singleFile}))
     }
 
     build {
