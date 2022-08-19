@@ -1,6 +1,0 @@
-name: LANBroadcaster
-version: 1.0
-main: me.bhop.lanbroadcaster.bukkit.LANBroadcasterBukkit
-author: Ruan, bhop_
-description: Broadcasts a Minecraft server over LAN.
-api-version: 1.13

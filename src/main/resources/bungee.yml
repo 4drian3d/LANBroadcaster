@@ -1,5 +1,0 @@
-name: LANBroadcaster
-version: 1.0
-main: me.bhop.lanbroadcaster.bungee.LANBroadcasterBungee
-author: Ruan, bhop_
-description: Broadcasts a Minecraft server over LAN.
