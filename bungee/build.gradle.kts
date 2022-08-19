@@ -8,7 +8,7 @@ bungee {
     name = "LANBroadcaster"
     version = project.version as String
     
-    author = "Ruan, bhop_"
+    author = "Ruan, bhop_, 4drian3d"
 }
 
 repositories {

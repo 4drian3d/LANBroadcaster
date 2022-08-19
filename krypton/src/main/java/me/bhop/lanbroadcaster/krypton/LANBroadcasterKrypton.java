@@ -23,7 +23,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
     name = "LANBroadcaster",
     version = Constants.VERSION,
     description = Constants.DESCRIPTION,
-    authors = {"Ruan", "bhop_"}
+    authors = {"Ruan", "bhop_", "4drian3d"}
 )
 public class LANBroadcasterKrypton {
     private final Server server;

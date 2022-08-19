@@ -10,7 +10,7 @@ bukkit {
 
     apiVersion = "1.13"
     
-    authors = listOf("Ruan", "bhop_")
+    authors = listOf("Ruan", "bhop_", "4drian3d")
 }
 
 repositories {

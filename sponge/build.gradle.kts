@@ -39,7 +39,7 @@ sponge {
             description("Fork Developer")
         }
         contributor("Ruan") {
-            description("Original Developer")
+            description("Original Developer", )
         }
     }
 }
