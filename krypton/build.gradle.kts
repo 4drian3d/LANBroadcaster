@@ -7,7 +7,7 @@ dependencies {
     compileOnly(project(":lanbroadcaster-common"))
     compileOnly(project(":lanbroadcaster-log4j"))
     compileOnly("org.kryptonmc:krypton-api:0.66.3")
-    annotationProcessor("org.kryptonmc:krypton-annotation-processor:0.66.3")
+    annotationProcessor("org.kryptonmc:krypton-annotation-processor:499879f4ef")
 }
 
 tasks.compileJava {
