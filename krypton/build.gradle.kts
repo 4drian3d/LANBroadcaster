@@ -9,8 +9,8 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterLog4j)
-    compileOnly("org.kryptonmc:krypton-api:0.66.3")
-    annotationProcessor("org.kryptonmc:krypton-annotation-processor:0.66.3")
+    compileOnly(libs.krypton.api)
+    annotationProcessor(libs.krypton.annotation)
 }
 
 tasks.compileJava {

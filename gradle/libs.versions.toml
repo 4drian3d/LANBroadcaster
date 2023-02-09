@@ -6,15 +6,42 @@ velocity = "3.2.0-SNAPSHOT"
 kotlin="1.8.10"
 waterfall="1.19-R0.1-SNAPSHOT"
 paper = "1.16.5-R0.1-SNAPSHOT"
-r-task = "2.0.1"
+runtask = "2.0.1"
 plugin-yml = "0.5.2"
 blossom = "1.3.1"
 sponge-api = "8.1.0"
-sponge-gradle = "2.0.2"
+sponge-gradle = "2.1.1"
 shadow = "7.1.2"
+krypton = "0.66.3"
+log4j = "2.19.0"
+slf4j = "2.0.6"
 
 [libraries]
 
 #Gradle dependencies
 plugin-shadow = { group = "gradle.plugin.com.github.johnrengelman", name = "shadow", version.ref = "shadow" }
 plugin-kotlin =  { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+velocity = { group  = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }
+paper = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "paper" }
+waterfall = { group = "io.github.waterfallmc", name = "waterfall-api", version.ref = "waterfall" }
+sponge-api = { group = "org.spongepowered", name = "spongeapi", version.ref = "sponge-api" }
+
+krypton-api = { group = "org.kryptonmc", name = "krypton-api", version.ref = "krypton" }
+krypton-annotation = { group = "org.kryptonmc", name = "krypton-annotation-processor", version.ref = "krypton" }
+
+log4j = { group = "org.apache.logging.log4j", name = "log4j-core", version.ref = "log4j" }
+slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+
+[plugins]
+
+runvelocity = { id = "xyz.jpenilla.run-velocity", version.ref = "runtask" }
+runpaper = { id = "xyz.jpenilla.run-paper", version.ref = "runtask" }
+runwaterfall = { id = "xyz.jpenilla.run-waterfall", version.ref = "runtask" }
+
+pluginyml-paper = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin-yml" }
+pluginyml-bungee = { id = "net.minecrell.plugin-yml.bungee", version.ref = "plugin-yml" }
+
+sponge-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
+
+blossom = { id = "net.kyori.blossom", version.ref = "blossom" }

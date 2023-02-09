@@ -1,6 +1,15 @@
 plugins {
     id("lanbroadcaster.shadow")
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
+    alias(libs.plugins.runpaper)
+    alias(libs.plugins.pluginyml.paper)
+}
+
+repositories {
+    maven("https://papermc.io/repo/repository/maven-public/")
+}
+
+dependencies {
+    compileOnly(libs.paper)
 }
 
 bukkit {
@@ -12,16 +21,13 @@ bukkit {
     authors = listOf("Ruan", "bhop_", "4drian3d")
 }
 
-repositories {
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-}
-
-dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
-}
-
-tasks.compileJava {
-    options.encoding = Charsets.UTF_8.name()
+tasks {
+    compileJava {
+        options.encoding = Charsets.UTF_8.name()
+    }
+    runServer {
+        minecraftVersion("1.16.5")
+    }
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))

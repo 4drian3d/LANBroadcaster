@@ -1,6 +1,7 @@
 plugins {
     id("lanbroadcaster.shadow")
-    id("net.minecrell.plugin-yml.bungee") version "0.5.2"
+    alias(libs.plugins.pluginyml.bungee)
+    alias(libs.plugins.runwaterfall)
 }
 
 bungee {
@@ -12,11 +13,11 @@ bungee {
 }
 
 repositories {
-    maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://papermc.io/repo/repository/maven-public/")
 }
 
 dependencies {
-    compileOnly("net.md-5:bungeecord-api:1.17-R0.1-SNAPSHOT")
+    compileOnly(libs.waterfall)
 }
 
 tasks.compileJava {

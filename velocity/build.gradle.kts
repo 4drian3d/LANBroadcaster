@@ -1,5 +1,6 @@
 plugins {
     id("lanbroadcaster.shadow")
+    alias(libs.plugins.runvelocity)
 }
 
 repositories {
@@ -8,13 +9,18 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterSlf4j)
-    compileOnly("com.velocitypowered:velocity-api:3.1.1")
-    annotationProcessor("com.velocitypowered:velocity-api:3.1.1")
+    compileOnly(libs.velocity)
+    annotationProcessor(libs.velocity)
 }
 
-tasks.compileJava {
-    options.encoding = Charsets.UTF_8.name()
-    options.release.set(11)
+tasks {
+    compileJava {
+        options.encoding = Charsets.UTF_8.name()
+        options.release.set(11)
+    }
+    runVelocity {
+        velocityVersion(libs.versions.velocity.get())
+    }
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))

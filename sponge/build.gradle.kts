@@ -2,7 +2,7 @@ import org.spongepowered.gradle.plugin.config.PluginLoaders
 
 plugins {
     id("lanbroadcaster.shadow")
-    id("org.spongepowered.gradle.plugin") version "2.1.1"
+    alias(libs.plugins.sponge.gradle)
 }
 
 repositories {
@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterLog4j)
-    compileOnly("org.spongepowered:spongeapi:8.1.0")
+    compileOnly(libs.sponge.api)
 }
 
 sponge {

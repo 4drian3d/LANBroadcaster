@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     compileOnly(projects.lanbroadcasterCommon)
-    compileOnly("org.apache.logging.log4j:log4j-core:2.19.0")
+    compileOnly(libs.log4j)
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
