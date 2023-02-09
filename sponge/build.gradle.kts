@@ -1,6 +1,7 @@
 import org.spongepowered.gradle.plugin.config.PluginLoaders
 
 plugins {
+    id("lanbroadcaster.shadow")
     id("org.spongepowered.gradle.plugin") version "2.0.2"
 }
 
@@ -9,8 +10,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(project(":lanbroadcaster-common"))
-    compileOnly(project(":lanbroadcaster-log4j"))
+    implementation(projects.lanbroadcasterLog4j)
     compileOnly("org.spongepowered:spongeapi:8.1.0-SNAPSHOT")
 }
 
@@ -33,13 +33,15 @@ sponge {
             issues("https://github.com/4drian3d/LANBroadcaster/issues")
         }
         contributor("4drian3d") {
-            description("Actual Developer")
+            description("Current Developer")
         }
         contributor("bhop_") {
             description("Fork Developer")
         }
         contributor("Ruan") {
-            description("Original Developer", )
+            description("Original Developer")
         }
     }
 }
+
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))

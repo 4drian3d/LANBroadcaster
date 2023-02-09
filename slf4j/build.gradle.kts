@@ -1,4 +1,10 @@
-dependencies {
-    compileOnly(project(":lanbroadcaster-common"))
-    compileOnly("org.slf4j:slf4j-api:1.7.36")
+plugins {
+    id("lanbroadcaster.base.java")
 }
+
+dependencies {
+    compileOnly(projects.lanbroadcasterCommon)
+    compileOnly("org.slf4j:slf4j-api:2.0.5")
+}
+
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))

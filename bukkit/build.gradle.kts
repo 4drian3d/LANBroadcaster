@@ -1,4 +1,5 @@
 plugins {
+    id("lanbroadcaster.shadow")
     id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
 }
 
@@ -7,9 +8,7 @@ bukkit {
     description = project.description as String
     name = "LANBroadcaster"
     version = project.version as String
-
     apiVersion = "1.13"
-    
     authors = listOf("Ruan", "bhop_", "4drian3d")
 }
 
@@ -18,6 +17,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly(project(":lanbroadcaster-common"))
     compileOnly("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
 }
+
+tasks.compileJava {
+    options.encoding = Charsets.UTF_8.name()
+}
+
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))

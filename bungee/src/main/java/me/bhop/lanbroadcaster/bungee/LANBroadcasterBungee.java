@@ -13,7 +13,7 @@ import me.bhop.lanbroadcaster.common.LANBroadcaster;
 import me.bhop.lanbroadcaster.common.logger.JavaLogger;
 
 public class LANBroadcasterBungee extends Plugin {
-    private List<LANBroadcaster> broadcasters = new ArrayList<>();
+    private final List<LANBroadcaster> broadcasters = new ArrayList<>();
 
     @Override
     @SuppressWarnings("unchecked")
