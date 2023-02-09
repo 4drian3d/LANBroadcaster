@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterLog4j)
-    compileOnly("org.kryptonmc:krypton-api:0.66.3")
+    compileOnly("org.kryptonmc:krypton-api:499879f4ef")
     annotationProcessor("org.kryptonmc:krypton-annotation-processor:0.66.3")
 }
 
