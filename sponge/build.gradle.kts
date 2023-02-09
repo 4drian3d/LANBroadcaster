@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterLog4j)
-    compileOnly("org.spongepowered:spongeapi:8.1.0")
+    compileOnly("org.spongepowered:spongeapi:9.0.0")
 }
 
 sponge {
