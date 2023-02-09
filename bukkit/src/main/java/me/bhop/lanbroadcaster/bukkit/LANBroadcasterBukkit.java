@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.bhop.lanbroadcaster.common.LANBroadcaster;
 import me.bhop.lanbroadcaster.common.logger.JavaLogger;
 
+@SuppressWarnings("unused")
 public class LANBroadcasterBukkit extends JavaPlugin {
     private LANBroadcaster broadcaster;
 
@@ -13,7 +14,6 @@ public class LANBroadcasterBukkit extends JavaPlugin {
     public void onEnable() {
         Server server = getServer();
         this.broadcaster = new LANBroadcaster(
-                LANBroadcaster.createSocket(),
                 server.getPort(),
                 server::getMotd,
                 new JavaLogger(getLogger()));

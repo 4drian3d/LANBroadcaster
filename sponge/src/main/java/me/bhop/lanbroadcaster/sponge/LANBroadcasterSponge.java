@@ -37,20 +37,19 @@ public class LANBroadcasterSponge {
 
     @Listener
     public void onPreInit(StartedEngineEvent<Server> event) {
-        Server server = event.engine();
-        Optional<InetSocketAddress> optional = server.boundAddress();
+        final Server server = event.engine();
+        final Optional<InetSocketAddress> optional = server.boundAddress();
         if (!optional.isPresent()) {
             return;
         }
 
-        InetSocketAddress in = optional.get();
+        final InetSocketAddress in = optional.get();
 
         this.broadcaster = new LANBroadcaster(
-                LANBroadcaster.createSocket(),
                 in.getPort(),
                 () -> LegacyComponentSerializer.legacySection().serialize(server.motd()),
                 logger);
-        Task task = Task.builder()
+        final Task task = Task.builder()
                 .execute(this.broadcaster)
                 .plugin(container)
                 .build();

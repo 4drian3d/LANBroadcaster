@@ -36,7 +36,6 @@ public class LANBroadcasterKrypton {
     @Listener
     public void onServerStart(ServerStartEvent event) {
         LANBroadcaster broadcaster = new LANBroadcaster(
-                LANBroadcaster.createSocket(),
                 server.address().getPort(),
                 () -> LegacyComponentSerializer.legacySection()
                     .serialize(server.motd()),

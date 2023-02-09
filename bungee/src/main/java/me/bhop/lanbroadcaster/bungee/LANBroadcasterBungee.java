@@ -12,6 +12,7 @@ import java.util.Map;
 import me.bhop.lanbroadcaster.common.LANBroadcaster;
 import me.bhop.lanbroadcaster.common.logger.JavaLogger;
 
+@SuppressWarnings("unused")
 public class LANBroadcasterBungee extends Plugin {
     private final List<LANBroadcaster> broadcasters = new ArrayList<>();
 
@@ -29,7 +30,6 @@ public class LANBroadcasterBungee extends Plugin {
             int port = Integer.parseInt(spl[1]);
 
             LANBroadcaster broadcaster = new LANBroadcaster(
-                    LANBroadcaster.createSocket(),
                     port,
                     () -> ChatColor.translateAlternateColorCodes('&', (String) map.get("motd")),
                     new JavaLogger(getLogger()));

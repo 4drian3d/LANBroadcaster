@@ -10,14 +10,17 @@ import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
 public class LANBroadcaster implements Runnable {
     private static final String BROADCAST_HOST = "224.0.2.60:4445";
     private int failcount = 0;
-    private final DatagramSocket socket;
+    private final DatagramSocket socket = createSocket();
     private final int port;
     private final Supplier<String> motd;
     private final AbstractLogger logger;
     private boolean running = true;
 
-    public LANBroadcaster(DatagramSocket socket, int port, Supplier<String> motd, AbstractLogger logger) {
-        this.socket = socket;
+    public LANBroadcaster(
+            int port,
+            Supplier<String> motd,
+            AbstractLogger logger
+    ) {
         this.port = port;
         this.motd = motd;
         this.logger = logger;
@@ -37,9 +40,9 @@ public class LANBroadcaster implements Runnable {
     @Override
     public void run() {
         try {
-            byte[] ad = getAd();
-            String[] host = BROADCAST_HOST.split(":");
-            DatagramPacket packet = new DatagramPacket(ad, ad.length, InetAddress.getByName(host[0]), Integer.parseInt(host[1]));
+            final byte[] ad = getAd();
+            final String[] host = BROADCAST_HOST.split(":");
+            final DatagramPacket packet = new DatagramPacket(ad, ad.length, InetAddress.getByName(host[0]), Integer.parseInt(host[1]));
             broadcast(socket, packet);
         } catch (Exception e) {
             e.printStackTrace();

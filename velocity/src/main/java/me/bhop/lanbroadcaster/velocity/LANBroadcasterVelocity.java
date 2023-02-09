@@ -35,7 +35,6 @@ public class LANBroadcasterVelocity {
     @Subscribe
     public void onProxyInit(ProxyInitializeEvent event) {
         this.broadcaster = new LANBroadcaster(
-                LANBroadcaster.createSocket(),
                 proxyServer.getBoundAddress().getPort(),
                 () -> LegacyComponentSerializer.legacySection()
                     .serialize(proxyServer.getConfiguration().getMotd()),
