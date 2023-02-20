@@ -17,7 +17,7 @@ public class LANBroadcasterBukkit extends JavaPlugin {
                 server.getPort(),
                 server::getMotd,
                 new JavaLogger(getLogger()));
-        server.getScheduler().runTaskAsynchronously(this, broadcaster);
+        this.broadcaster.run();
     }
 
     @Override

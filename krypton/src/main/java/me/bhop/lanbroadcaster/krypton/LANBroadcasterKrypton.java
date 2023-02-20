@@ -42,7 +42,7 @@ public class LANBroadcasterKrypton {
                 () -> LegacyComponentSerializer.legacySection()
                         .serialize(server.motd()),
                 logger);
-        server.scheduler().run(this, task -> broadcaster.run());
+        this.broadcaster.schedule();
     }
 
     @Listener

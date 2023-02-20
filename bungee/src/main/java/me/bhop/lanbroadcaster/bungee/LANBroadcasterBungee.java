@@ -36,7 +36,7 @@ public class LANBroadcasterBungee extends Plugin {
             broadcasters.add(broadcaster);
         }
         for (LANBroadcaster broadcaster : broadcasters)
-            proxy.getScheduler().runAsync(this, broadcaster);
+            broadcaster.schedule();
     }
 
     @Override

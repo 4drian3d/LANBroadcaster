@@ -39,7 +39,7 @@ public class LANBroadcasterVelocity {
                 () -> LegacyComponentSerializer.legacySection()
                     .serialize(proxyServer.getConfiguration().getMotd()),
                 logger);
-        proxyServer.getScheduler().buildTask(this, this.broadcaster).schedule();
+        this.broadcaster.schedule();
     }
 
     @Subscribe
