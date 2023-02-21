@@ -48,5 +48,6 @@ public class LANBroadcasterKrypton {
     @Listener
     public void onServerStop(ServerStopEvent event) {
         this.broadcaster.shutdown();
+        this.broadcaster = null;
     }
 }

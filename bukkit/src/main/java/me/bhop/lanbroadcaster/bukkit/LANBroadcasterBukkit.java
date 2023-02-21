@@ -10,6 +10,7 @@ import me.bhop.lanbroadcaster.common.logger.JavaLogger;
 public class LANBroadcasterBukkit extends JavaPlugin {
     private LANBroadcaster broadcaster;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onEnable() {
         Server server = getServer();
@@ -17,7 +18,7 @@ public class LANBroadcasterBukkit extends JavaPlugin {
                 server.getPort(),
                 server::getMotd,
                 new JavaLogger(getLogger()));
-        this.broadcaster.run();
+        this.broadcaster.schedule();
     }
 
     @Override

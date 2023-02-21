@@ -10,23 +10,26 @@ import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
 import static me.bhop.lanbroadcaster.common.Constants.*;
 
 public class LANBroadcaster implements Runnable {
-    private final ScheduledExecutorService EXECUTOR = Executors.newScheduledThreadPool(2);
+    private final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor(
+            r -> new Thread(r, "LANBroadcasterExecutor")
+    );
     private int failCount = 0;
     private final DatagramSocket socket = createSocket();
-    private final int port;
+    private final String port;
     private final Supplier<String> motd;
     private final AbstractLogger logger;
     private boolean running = true;
     private ScheduledFuture<?> future;
 
     public LANBroadcaster(
-            int port,
-            Supplier<String> motd,
-            AbstractLogger logger
+            final int port,
+            final Supplier<String> motd,
+            final AbstractLogger logger
     ) {
-        this.port = port;
+        this.port = Integer.toString(port);
         this.motd = motd;
         this.logger = logger;
+        logger.info("Broadcasting server with port "+port+" over LAN.");
     }
 
     public void schedule() {
@@ -78,10 +81,7 @@ public class LANBroadcaster implements Runnable {
     }
 
     private byte[] getAd() {
-        String ad = Integer.toString(port);
-        logger.info("Broadcasting server with port "+ad+" over LAN.");
-
-        String str = "[MOTD]" + motd.get() + "[/MOTD][AD]" + ad + "[/AD]";
+        final String str = "[MOTD]" + motd.get() + "[/MOTD][AD]" + port + "[/AD]";
         return str.getBytes(StandardCharsets.UTF_8);
     }
 
