@@ -9,15 +9,15 @@ import java.util.function.Supplier;
 import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
 import static me.bhop.lanbroadcaster.common.Constants.*;
 
-public class LANBroadcaster implements Runnable {
+public final class LANBroadcaster implements Runnable {
     private final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor(
             r -> new Thread(r, "LANBroadcasterExecutor")
     );
-    private int failCount = 0;
     private final DatagramSocket socket = createSocket();
     private final String port;
     private final Supplier<String> motd;
     private final AbstractLogger logger;
+    private int failCount = 0;
     private boolean running = true;
     private ScheduledFuture<?> future;
 
@@ -65,8 +65,9 @@ public class LANBroadcaster implements Runnable {
 
     private void fail(Exception e) {
         if (failCount++ == 0) {
-            e.printStackTrace();
+            logger.warn("Failed to broadcast.", e);
         }
+
         if (failCount < 5) {
             logger.warn("Failed to broadcast. Trying again in 10 seconds...");
         } else if (failCount == 5) {
@@ -89,6 +90,7 @@ public class LANBroadcaster implements Runnable {
         this.running = false;
         try {
             EXECUTOR.shutdown();
+            //noinspection ResultOfMethodCallIgnored
             EXECUTOR.awaitTermination(100, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
