@@ -1,15 +1,6 @@
 plugins {
     id("lanbroadcaster.shadow")
-    alias(libs.plugins.pluginyml.bungee)
     alias(libs.plugins.runwaterfall)
-}
-
-bungee {
-    main = "me.bhop.lanbroadcaster.bungee.LANBroadcasterBungee"
-    description = project.description as String
-    name = "LANBroadcaster"
-    version = project.version as String
-    author = "Ruan, bhop_, 4drian3d"
 }
 
 repositories {
@@ -20,8 +11,18 @@ dependencies {
     compileOnly(libs.waterfall)
 }
 
-tasks.compileJava {
-    options.encoding = Charsets.UTF_8.name()
+tasks {
+    compileJava {
+        options.encoding = Charsets.UTF_8.name()
+    }
+    processResources {
+        filesMatching("bungee.yml") {
+            expand("version" to project.version)
+        }
+    }
+    runWaterfall {
+        waterfallVersion("1.19")
+    }
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
