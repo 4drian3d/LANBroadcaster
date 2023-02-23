@@ -13,7 +13,7 @@ sponge-api = "8.1.0"
 sponge-gradle = "2.1.1"
 shadow = "7.1.2"
 krypton = "0.66.3"
-log4j = "2.19.0"
+log4j = "2.20.0"
 slf4j = "2.0.6"
 
 [libraries]
