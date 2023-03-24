@@ -14,7 +14,7 @@ sponge-gradle = "2.1.1"
 shadow = "8.0.0"
 krypton = "0.66.3"
 log4j = "2.20.0"
-slf4j = "2.0.6"
+slf4j = "2.0.7"
 
 [libraries]
 
