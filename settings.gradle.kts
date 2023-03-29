@@ -7,6 +7,7 @@ arrayOf(
     "slf4j",
     "log4j",
     "bukkit",
+    "paper",
     "velocity",
     "sponge",
     "bungee",

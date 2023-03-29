@@ -1,6 +1,6 @@
 plugins {
     id("lanbroadcaster.shadow")
-    alias(libs.plugins.runvelocity)
+    id("xyz.jpenilla.run-velocity")
 }
 
 repositories {

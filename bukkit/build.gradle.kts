@@ -1,6 +1,6 @@
 plugins {
     id("lanbroadcaster.shadow")
-    alias(libs.plugins.runpaper)
+    id("xyz.jpenilla.run-paper")
 }
 
 repositories {
@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.paper)
+    compileOnly(libs.bukkit)
 }
 
 tasks {

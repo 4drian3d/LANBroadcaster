@@ -1,0 +1,7 @@
+name: LANBroadcaster
+version: ${version}
+main: me.bhop.lanbroadcaster.paper.LANBroadcasterPaper
+description: Broadcasts a Minecraft server over LAN.
+authors: [Ruan, bhop, 4drian3d]
+api-version: 1.19
+folia-supported: true

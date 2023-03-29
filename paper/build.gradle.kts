@@ -1,6 +1,6 @@
 plugins {
     id("lanbroadcaster.shadow")
-    id("xyz.jpenilla.run-waterfall")
+    id("xyz.jpenilla.run-paper")
 }
 
 repositories {
@@ -8,21 +8,23 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.waterfall)
+    implementation(projects.lanbroadcasterSlf4j)
+    compileOnly(libs.paper)
 }
 
 tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name()
+        options.release.set(17)
+    }
+    runServer {
+        minecraftVersion("1.19.3")
     }
     processResources {
-        filesMatching("bungee.yml") {
+        filesMatching("paper-plugin.yml") {
             expand("version" to project.version)
         }
     }
-    runWaterfall {
-        waterfallVersion("1.19")
-    }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
