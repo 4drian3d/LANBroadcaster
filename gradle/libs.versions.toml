@@ -27,7 +27,6 @@ velocity = { group  = "com.velocitypowered", name = "velocity-api", version.ref 
 bukkit = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "bukkit" }
 paper  = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
 waterfall = { group = "io.github.waterfallmc", name = "waterfall-api", version.ref = "waterfall" }
-sponge-api = { group = "org.spongepowered", name = "spongeapi", version.ref = "sponge-api" }
 
 krypton-api = { group = "org.kryptonmc", name = "krypton-api", version.ref = "krypton" }
 krypton-annotation = { group = "org.kryptonmc", name = "krypton-annotation-processor", version.ref = "krypton" }

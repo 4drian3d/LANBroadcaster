@@ -11,11 +11,10 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterLog4j)
-    compileOnly(libs.sponge.api)
 }
 
 sponge {
-    apiVersion("8.0.0")
+    apiVersion(libs.versions.sponge.api.get())
     loader {
         name(PluginLoaders.JAVA_PLAIN)
         version("1.0")
@@ -44,4 +43,4 @@ sponge {
     }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))

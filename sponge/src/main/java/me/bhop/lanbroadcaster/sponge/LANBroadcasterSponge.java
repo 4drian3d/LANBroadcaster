@@ -32,7 +32,7 @@ public class LANBroadcasterSponge {
     public void onPreInit(StartedEngineEvent<Server> event) {
         final Server server = event.engine();
         final Optional<InetSocketAddress> optional = server.boundAddress();
-        if (!optional.isPresent()) {
+        if (optional.isEmpty()) {
             return;
         }
 
