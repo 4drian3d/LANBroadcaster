@@ -5,7 +5,8 @@ server to be broadcasted over the local area network and appear in the LAN serve
 ![](https://cdn.modrinth.com/data/Y6nlCg58/images/ac8486196b79e080a8ef2584c666a40e13a86200.png)
 
 ## Why this version?
-The original LANBroadcaster, by Ruan has support for Spigot and BungeeCord, bhopahk make its own fork with support for [Sponge](https://spongepowered.org/) and [Velocity](https://velocitypowered.com/), however this version modularize the project and adds support for [Krypton](https://kryptonmc.org/).
+The original LANBroadcaster, by Ruan has support for Spigot and BungeeCord, bhopahk make its own fork with support for [Sponge](https://spongepowered.org/) and [Velocity](https://velocitypowered.com/),
+however this version modularize the project and improves performance and code quality, as well as being upgraded to new platform versions.
 
 ## Getting Started
 LANBroadcaster can be downloaded from the versions tab [here](https://modrinth.com/mod/lanbroadcaster/versions).
