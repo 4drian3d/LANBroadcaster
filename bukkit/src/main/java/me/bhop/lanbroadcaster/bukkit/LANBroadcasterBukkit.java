@@ -13,7 +13,8 @@ public class LANBroadcasterBukkit extends JavaPlugin {
     @SuppressWarnings("deprecation")
     @Override
     public void onEnable() {
-        Server server = getServer();
+        getLogger().warning("This version of LANBroadcaster is deprecated and will be removed in the future. Consider using Paper in conjunction with LANBroadcasterPaper");
+        final Server server = getServer();
         this.broadcaster = new LANBroadcaster(
                 server.getPort(),
                 server::getMotd,

@@ -18,7 +18,7 @@ tasks {
         options.release.set(17)
     }
     runServer {
-        minecraftVersion("1.19.3")
+        minecraftVersion("1.20.1")
     }
     processResources {
         filesMatching("paper-plugin.yml") {

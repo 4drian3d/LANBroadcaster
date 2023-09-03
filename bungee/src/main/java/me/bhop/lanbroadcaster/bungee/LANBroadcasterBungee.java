@@ -14,6 +14,7 @@ public class LANBroadcasterBungee extends Plugin {
     @Override
     @SuppressWarnings("unchecked")
     public void onEnable() {
+        getLogger().warning("This version of LANBroadcaster is deprecated and will be removed in the future. Consider using Velocity in conjunction with LANBroadcasterVelocity");
         final Collection<?> listeners = getProxy().getConfigurationAdapter()
                 .getList("listeners", Collections.emptyList());
         for (final Object obj : listeners) {
