@@ -25,4 +25,4 @@ tasks {
     }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))

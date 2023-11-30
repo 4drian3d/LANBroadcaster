@@ -1,12 +1,17 @@
 plugins {
     id("lanbroadcaster.base.java")
+    alias(libs.plugins.idea.ext)
     alias(libs.plugins.blossom)
 }
 
-blossom {
-    replaceTokenIn("src/main/java/me/bhop/lanbroadcaster/common/Constants.java")
-    replaceToken("{version}", version)
-    replaceToken("{description}", project.description)
+sourceSets {
+    main {
+        blossom {
+            javaSources {
+                property("version", project.version.toString())
+            }
+        }
+    }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))

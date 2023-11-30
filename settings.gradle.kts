@@ -10,7 +10,6 @@ arrayOf(
     "paper",
     "velocity",
     "sponge",
-    "bungee"
 ).forEach {
     include("lanbroadcaster-$it")
     project(":lanbroadcaster-$it").projectDir = file(it)

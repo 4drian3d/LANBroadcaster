@@ -18,7 +18,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
     id = "lanbroadcaster",
     name = "LANBroadcaster",
     version = Constants.VERSION,
-    description = Constants.DESCRIPTION,
+    description = "Broadcasts a Minecraft server over LAN.",
     authors = {"Ruan", "bhop_", "4drian3d"}
 )
 public class LANBroadcasterVelocity {
