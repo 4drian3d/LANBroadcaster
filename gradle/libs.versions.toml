@@ -46,4 +46,4 @@ pluginyml-bungee = { id = "net.minecrell.plugin-yml.bungee", version.ref = "plug
 sponge-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 
 blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
-idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.1.7" }
+idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.1.9" }
