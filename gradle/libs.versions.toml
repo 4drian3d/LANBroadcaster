@@ -3,7 +3,7 @@ metadata.format.version = "1.1"
 [versions]
 
 velocity = "3.2.0-SNAPSHOT"
-kotlin="1.9.25"
+kotlin="2.0.21"
 waterfall="1.19-R0.1-SNAPSHOT"
 bukkit = "1.16.5-R0.1-SNAPSHOT"
 paper = "1.20.1-R0.1-SNAPSHOT"
