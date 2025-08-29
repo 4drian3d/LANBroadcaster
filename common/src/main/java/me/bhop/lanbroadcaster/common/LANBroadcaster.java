@@ -15,7 +15,7 @@ public final class LANBroadcaster implements Runnable {
     );
     private final DatagramSocket socket = createSocket();
     private final String port;
-    private final Supplier<String> motd;
+    private final Supplier<String> motdSupplier;
     private final AbstractLogger logger;
     private int failCount = 0;
     private boolean running = true;
@@ -23,11 +23,11 @@ public final class LANBroadcaster implements Runnable {
 
     public LANBroadcaster(
             final int port,
-            final Supplier<String> motd,
+            final Supplier<String> motdSupplier,
             final AbstractLogger logger
     ) {
         this.port = Integer.toString(port);
-        this.motd = motd;
+        this.motdSupplier = motdSupplier;
         this.logger = logger;
         logger.info("Broadcasting server with port "+port+" over LAN.");
     }
@@ -82,7 +82,7 @@ public final class LANBroadcaster implements Runnable {
     }
 
     private byte[] getAd() {
-        final String str = "[MOTD]" + motd.get() + "[/MOTD][AD]" + port + "[/AD]";
+        final String str = "[MOTD]" + motdSupplier.get() + "[/MOTD][AD]" + port + "[/AD]";
         return str.getBytes(StandardCharsets.UTF_8);
     }
 

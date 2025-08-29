@@ -2,34 +2,26 @@ metadata.format.version = "1.1"
 
 [versions]
 
-velocity = "3.2.0-SNAPSHOT"
-kotlin="2.0.21"
-waterfall="1.19-R0.1-SNAPSHOT"
-bukkit = "1.16.5-R0.1-SNAPSHOT"
+velocity = "3.4.0-SNAPSHOT"
+kotlin="2.2.10"
 paper = "1.20.1-R0.1-SNAPSHOT"
 runtask = "2.3.1"
 plugin-yml = "0.6.0"
 blossom = "2.1.0"
 sponge-api = "8.2.0"
 sponge-gradle = "2.2.0"
-shadow = "8.0.0"
-krypton = "0.66.3"
+shadow = "9.0.2"
 log4j = "2.24.1"
 slf4j = "2.0.16"
 
 [libraries]
 
 #Gradle dependencies
-plugin-shadow = { group = "gradle.plugin.com.github.johnrengelman", name = "shadow", version.ref = "shadow" }
+plugin-shadow = { group = "com.gradleup.shadow", name = "com.gradleup.shadow.gradle.plugin", version.ref = "shadow" }
 plugin-kotlin =  { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 velocity = { group  = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }
-bukkit = { group = "com.destroystokyo.paper", name = "paper-api", version.ref = "bukkit" }
 paper  = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
-waterfall = { group = "io.github.waterfallmc", name = "waterfall-api", version.ref = "waterfall" }
-
-krypton-api = { group = "org.kryptonmc", name = "krypton-api", version.ref = "krypton" }
-krypton-annotation = { group = "org.kryptonmc", name = "krypton-annotation-processor", version.ref = "krypton" }
 
 log4j = { group = "org.apache.logging.log4j", name = "log4j-core", version.ref = "log4j" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
@@ -38,11 +30,8 @@ slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 
 runvelocity = { id = "xyz.jpenilla.run-velocity", version.ref = "runtask" }
 runpaper = { id = "xyz.jpenilla.run-paper", version.ref = "runtask" }
-runwaterfall = { id = "xyz.jpenilla.run-waterfall", version.ref = "runtask" }
 
 pluginyml-paper = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin-yml" }
-pluginyml-bungee = { id = "net.minecrell.plugin-yml.bungee", version.ref = "plugin-yml" }
-
 sponge-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 
 blossom = { id = "net.kyori.blossom", version.ref = "blossom" }

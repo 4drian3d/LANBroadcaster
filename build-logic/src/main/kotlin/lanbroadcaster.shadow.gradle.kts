@@ -1,6 +1,6 @@
 plugins {
     id("lanbroadcaster.base.java")
-    id("com.github.johnrengelman.shadow")
+    id("com.gradleup.shadow")
 }
 
 dependencies {

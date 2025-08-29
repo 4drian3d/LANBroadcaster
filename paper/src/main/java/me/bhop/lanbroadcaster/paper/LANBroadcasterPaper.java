@@ -12,7 +12,7 @@ public class LANBroadcasterPaper extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Server server = getServer();
+        final Server server = getServer();
         this.broadcaster = new LANBroadcaster(
                 server.getPort(),
                 () -> LegacyComponentSerializer.legacySection().serialize(server.motd()),

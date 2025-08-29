@@ -4,7 +4,7 @@ plugins {
 }
 
 repositories {
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -18,7 +18,7 @@ tasks {
         options.release.set(17)
     }
     runServer {
-        minecraftVersion("1.20.1")
+        minecraftVersion("1.21.8")
     }
     processResources {
         filesMatching("paper-plugin.yml") {

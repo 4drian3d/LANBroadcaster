@@ -16,11 +16,11 @@ dependencies {
 tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(11)
+        options.release.set(17)
     }
     runVelocity {
         velocityVersion(libs.versions.velocity.get())
     }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
