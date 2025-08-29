@@ -7,4 +7,4 @@ dependencies {
     compileOnly(libs.slf4j)
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
