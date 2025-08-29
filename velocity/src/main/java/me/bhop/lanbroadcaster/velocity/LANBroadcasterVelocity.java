@@ -1,18 +1,15 @@
 package me.bhop.lanbroadcaster.velocity;
 
-import org.slf4j.Logger;
-
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
-
 import me.bhop.lanbroadcaster.common.Constants;
 import me.bhop.lanbroadcaster.common.LANBroadcaster;
 import me.bhop.lanbroadcaster.slf4j.SLF4JLogger;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.slf4j.Logger;
 
 @Plugin(
     id = "lanbroadcaster",
@@ -34,17 +31,23 @@ public class LANBroadcasterVelocity {
 
     @Subscribe
     public void onProxyInit(ProxyInitializeEvent event) {
-        this.broadcaster = new LANBroadcaster(
-                proxyServer.getBoundAddress().getPort(),
-                () -> LegacyComponentSerializer.legacySection()
-                    .serialize(proxyServer.getConfiguration().getMotd()),
-                logger);
-        this.broadcaster.schedule();
+        try {
+            this.broadcaster = LANBroadcaster.initialize(
+                    proxyServer.getBoundAddress().getPort(),
+                    new VelocityMOTDProvider(proxyServer, proxyServer.getEventManager()),
+                    logger);
+            this.broadcaster.schedule();
+        } catch (Exception e) {
+            logger.error("LANBroadcaster could not be initialized.", e);
+        }
+
     }
 
     @Subscribe
     public void onProxyShutdown(ProxyShutdownEvent event) {
-        this.broadcaster.shutdown();
-        this.broadcaster = null;
+        if (this.broadcaster != null) {
+            this.broadcaster.shutdown();
+            this.broadcaster = null;
+        }
     }
 }

@@ -1,50 +1,55 @@
 package me.bhop.lanbroadcaster.common;
 
+import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
+
 import java.io.IOException;
-import java.net.*;
+import java.io.UncheckedIOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
-import java.util.function.Supplier;
 
-import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
-import static me.bhop.lanbroadcaster.common.Constants.*;
+import static me.bhop.lanbroadcaster.common.Constants.BROADCAST_ADDRESS;
+import static me.bhop.lanbroadcaster.common.Constants.BROADCAST_PORT;
 
 public final class LANBroadcaster implements Runnable {
     private final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor(
-            r -> new Thread(r, "LANBroadcasterExecutor")
+            runnable -> Thread.ofVirtual().name("LANBroadcasterExecutor").unstarted(runnable)
     );
-    private final DatagramSocket socket = createSocket();
+    private final DatagramSocket socket;
     private final String port;
-    private final Supplier<String> motdSupplier;
+    private final MOTDProvider motdProvider;
     private final AbstractLogger logger;
     private int failCount = 0;
     private boolean running = true;
     private ScheduledFuture<?> future;
 
-    public LANBroadcaster(
+    private LANBroadcaster(
             final int port,
-            final Supplier<String> motdSupplier,
-            final AbstractLogger logger
+            final MOTDProvider motdProvider,
+            final AbstractLogger logger,
+            final DatagramSocket socket
     ) {
         this.port = Integer.toString(port);
-        this.motdSupplier = motdSupplier;
+        this.motdProvider = motdProvider;
         this.logger = logger;
+        this.socket = socket;
+    }
+
+    public static LANBroadcaster initialize(
+            final int port,
+            final MOTDProvider motdProvider,
+            final AbstractLogger logger
+    ) throws Exception {
+        DatagramSocket socket = new DatagramSocket();
+        socket.setSoTimeout(3000);
+        final LANBroadcaster broadcaster = new LANBroadcaster(port, motdProvider, logger, socket);
         logger.info("Broadcasting server with port "+port+" over LAN.");
+        return broadcaster;
     }
 
     public void schedule() {
         this.future = EXECUTOR.scheduleAtFixedRate(this, 0, 1500, TimeUnit.MILLISECONDS);
-    }
-
-    public static DatagramSocket createSocket() {
-        DatagramSocket socket = null;
-        try {
-            socket = new DatagramSocket();
-            socket.setSoTimeout(3000);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-        return socket;
     }
 
     @Override
@@ -53,17 +58,21 @@ public final class LANBroadcaster implements Runnable {
             future.cancel(false);
             return;
         }
-        try {
-            final byte[] ad = getAd();
+        getAd().thenAccept(ad -> {
             final DatagramPacket packet = new DatagramPacket(ad, ad.length, BROADCAST_ADDRESS, BROADCAST_PORT);
-            socket.send(packet);
+            try {
+                socket.send(packet);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
             failCount = 0;
-        } catch (IOException e) {
+        }).handle((r, e) -> {
             fail(e);
-        }
+            return null;
+        }).join();
     }
 
-    private void fail(Exception e) {
+    private void fail(Throwable e) {
         if (failCount++ == 0) {
             logger.warn("Failed to broadcast.", e);
         }
@@ -81,9 +90,10 @@ public final class LANBroadcaster implements Runnable {
         EXECUTOR.schedule(this::schedule, 8500, TimeUnit.MILLISECONDS);
     }
 
-    private byte[] getAd() {
-        final String str = "[MOTD]" + motdSupplier.get() + "[/MOTD][AD]" + port + "[/AD]";
-        return str.getBytes(StandardCharsets.UTF_8);
+    private CompletableFuture<byte[]> getAd() {
+        return motdProvider.provideMOTD()
+                .thenApply(platformMotd -> "[MOTD]" + platformMotd + "[/MOTD][AD]" + port + "[/AD]")
+                .thenApply(formatted -> formatted.getBytes(StandardCharsets.UTF_8));
     }
 
     public void shutdown() {
