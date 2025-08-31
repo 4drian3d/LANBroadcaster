@@ -24,8 +24,10 @@ public record VelocityMOTDProvider(
         );
         return proxyServer.getEventManager()
                 .fire(pingEvent)
-                .thenApplyAsync(ProxyPingEvent::getPing, executor)
-                .thenApplyAsync(ServerPing::getDescriptionComponent, executor)
-                .thenApplyAsync(LegacyComponentSerializer.legacySection()::serialize, executor);
+                .thenApplyAsync(event -> LegacyComponentSerializer.legacySection().serialize(
+                            event.getResult().isAllowed()
+                                    ? event.getPing().getDescriptionComponent()
+                                    : proxyServer.getConfiguration().getMotd())
+                , executor);
     }
 }

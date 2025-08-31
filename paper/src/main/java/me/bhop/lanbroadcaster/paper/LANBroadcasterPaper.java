@@ -15,7 +15,8 @@ public final class LANBroadcasterPaper extends JavaPlugin {
         final Logger logger = getSLF4JLogger();
         final Server server = getServer();
         try {
-            this.broadcaster = LANBroadcaster.initialize(server.getPort(), new PaperMOTDProvider(), new SLF4JLogger(logger));
+            this.broadcaster = LANBroadcaster.initialize(
+                    server.getPort(), new PaperMOTDProvider(server), new SLF4JLogger(logger));
             this.broadcaster.schedule();
         } catch (Exception e) {
             getSLF4JLogger().error("LANBroadcaster could not be initialized.", e);

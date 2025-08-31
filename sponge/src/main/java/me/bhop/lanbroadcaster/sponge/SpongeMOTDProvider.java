@@ -13,8 +13,9 @@ public record SpongeMOTDProvider(Server server) implements MOTDProvider {
     public CompletableFuture<String> provideMOTD(final ExecutorService executor) {
         return CompletableFuture.supplyAsync(() -> {
             final ClientPingServerEvent pingEvent = new SpongePingEventImpl(server);
-            server.game().eventManager().post(pingEvent);
-            return LegacyComponentSerializer.legacySection().serialize(pingEvent.response().description());
+            return LegacyComponentSerializer.legacySection().serialize(server.game().eventManager().post(pingEvent)
+                    ? pingEvent.response().description()
+                    : server.motd());
         }, executor);
     }
 }
