@@ -9,10 +9,10 @@ runtask = "2.3.1"
 plugin-yml = "0.6.0"
 blossom = "2.1.0"
 sponge-api = "14.0.0"
-sponge-gradle = "2.2.0"
-shadow = "9.0.2"
-log4j = "2.24.1"
-slf4j = "2.0.16"
+sponge-gradle = "2.3.0"
+shadow = "9.1.0"
+log4j = "2.25.1"
+slf4j = "2.0.17"
 
 [libraries]
 
@@ -35,4 +35,4 @@ pluginyml-paper = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugi
 sponge-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 
 blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
-idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.1.9" }
+idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.3" }
