@@ -91,8 +91,10 @@ public final class LANBroadcaster implements Runnable {
 
     private CompletableFuture<byte[]> getAd() {
         return motdProvider.provideMOTD(VIRTUAL_EXECUTOR)
-                .thenApplyAsync(platformMotd -> "[MOTD]" + platformMotd + "[/MOTD][AD]" + port + "[/AD]")
-                .thenApplyAsync(formatted -> formatted.getBytes(StandardCharsets.UTF_8));
+                .thenApply(platformMotd ->
+                        ("[MOTD]" + platformMotd.replace('\n', ' ') + "[/MOTD][AD]" + port + "[/AD]")
+                        .getBytes(StandardCharsets.UTF_8)
+                );
     }
 
     public void shutdown() {
