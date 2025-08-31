@@ -2,27 +2,33 @@ package me.bhop.lanbroadcaster.paper;
 
 import me.bhop.lanbroadcaster.common.LANBroadcaster;
 import me.bhop.lanbroadcaster.slf4j.SLF4JLogger;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
 
 @SuppressWarnings("unused")
-public class LANBroadcasterPaper extends JavaPlugin {
+public final class LANBroadcasterPaper extends JavaPlugin {
     private LANBroadcaster broadcaster;
 
     @Override
     public void onEnable() {
+        final Logger logger = getSLF4JLogger();
         final Server server = getServer();
-        this.broadcaster = new LANBroadcaster(
-                server.getPort(),
-                () -> LegacyComponentSerializer.legacySection().serialize(server.motd()),
-                new SLF4JLogger(getSLF4JLogger()));
-        this.broadcaster.schedule();
+        try {
+            this.broadcaster = LANBroadcaster.initialize(
+                    server.getPort(), new PaperMOTDProvider(server), new SLF4JLogger(logger));
+            this.broadcaster.schedule();
+        } catch (Exception e) {
+            getSLF4JLogger().error("LANBroadcaster could not be initialized.", e);
+        }
+
     }
 
     @Override
     public void onDisable() {
-        broadcaster.shutdown();
-        broadcaster = null;
+        if (broadcaster != null) {
+            broadcaster.shutdown();
+            broadcaster = null;
+        }
     }
 }

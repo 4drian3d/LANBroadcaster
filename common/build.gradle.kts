@@ -14,4 +14,4 @@ sourceSets {
     }
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(11))
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
