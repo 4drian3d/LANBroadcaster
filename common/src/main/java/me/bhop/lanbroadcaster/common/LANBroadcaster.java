@@ -8,19 +8,21 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static me.bhop.lanbroadcaster.common.Constants.BROADCAST_ADDRESS;
 import static me.bhop.lanbroadcaster.common.Constants.BROADCAST_PORT;
 
 public final class LANBroadcaster implements Runnable {
-    private final ScheduledExecutorService EXECUTOR = Executors.newSingleThreadScheduledExecutor(
-            runnable -> Thread.ofVirtual().name("LANBroadcasterExecutor").unstarted(runnable)
+    private final ScheduledExecutorService SCHEDULED_EXECUTOR = Executors.newSingleThreadScheduledExecutor(
+            runnable -> Thread.ofPlatform().name("LANBroadcasterExecutor").unstarted(runnable)
     );
+    private final ExecutorService VIRTUAL_EXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
     private final DatagramSocket socket;
     private final String port;
     private final MOTDProvider motdProvider;
     private final AbstractLogger logger;
-    private int failCount = 0;
+    private final AtomicInteger failCount = new AtomicInteger(0);
     private boolean running = true;
     private ScheduledFuture<?> future;
 
@@ -49,7 +51,7 @@ public final class LANBroadcaster implements Runnable {
     }
 
     public void schedule() {
-        this.future = EXECUTOR.scheduleAtFixedRate(this, 0, 1500, TimeUnit.MILLISECONDS);
+        this.future = SCHEDULED_EXECUTOR.scheduleAtFixedRate(this, 0, 1500, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -58,28 +60,25 @@ public final class LANBroadcaster implements Runnable {
             future.cancel(false);
             return;
         }
-        getAd().thenAccept(ad -> {
+        this.getAd().thenAcceptAsync(ad -> {
             final DatagramPacket packet = new DatagramPacket(ad, ad.length, BROADCAST_ADDRESS, BROADCAST_PORT);
             try {
                 socket.send(packet);
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
-            failCount = 0;
-        }).handle((r, e) -> {
-            fail(e);
-            return null;
-        }).join();
+            failCount.set(0);
+        }, VIRTUAL_EXECUTOR).whenCompleteAsync((r, e) -> { if (e != null) fail(e); }, VIRTUAL_EXECUTOR);
     }
 
     private void fail(Throwable e) {
-        if (failCount++ == 0) {
+        if (failCount.getAndIncrement() == 0) {
             logger.warn("Failed to broadcast.", e);
         }
 
-        if (failCount < 5) {
+        if (failCount.get() < 5) {
             logger.warn("Failed to broadcast. Trying again in 10 seconds...");
-        } else if (failCount == 5) {
+        } else if (failCount.get() == 5) {
             logger.error("Broadcasting will not work until the network is fixed. Warnings disabled.");
         }
 
@@ -87,21 +86,22 @@ public final class LANBroadcaster implements Runnable {
             this.future.cancel(true);
         }
 
-        EXECUTOR.schedule(this::schedule, 8500, TimeUnit.MILLISECONDS);
+        SCHEDULED_EXECUTOR.schedule(this::schedule, 8500, TimeUnit.MILLISECONDS);
     }
 
     private CompletableFuture<byte[]> getAd() {
-        return motdProvider.provideMOTD()
-                .thenApply(platformMotd -> "[MOTD]" + platformMotd + "[/MOTD][AD]" + port + "[/AD]")
-                .thenApply(formatted -> formatted.getBytes(StandardCharsets.UTF_8));
+        return motdProvider.provideMOTD(VIRTUAL_EXECUTOR)
+                .thenApplyAsync(platformMotd -> "[MOTD]" + platformMotd + "[/MOTD][AD]" + port + "[/AD]")
+                .thenApplyAsync(formatted -> formatted.getBytes(StandardCharsets.UTF_8));
     }
 
     public void shutdown() {
         this.running = false;
         try {
-            EXECUTOR.shutdown();
+            SCHEDULED_EXECUTOR.shutdown();
             //noinspection ResultOfMethodCallIgnored
-            EXECUTOR.awaitTermination(100, TimeUnit.MILLISECONDS);
+            SCHEDULED_EXECUTOR.awaitTermination(100, TimeUnit.MILLISECONDS);
+            VIRTUAL_EXECUTOR.shutdown();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } finally {

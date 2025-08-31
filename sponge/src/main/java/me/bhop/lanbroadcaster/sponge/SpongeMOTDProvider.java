@@ -6,14 +6,15 @@ import org.spongepowered.api.Server;
 import org.spongepowered.api.event.server.ClientPingServerEvent;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public record SpongeMOTDProvider(Server server) implements MOTDProvider {
     @Override
-    public CompletableFuture<String> provideMOTD() {
+    public CompletableFuture<String> provideMOTD(final ExecutorService executor) {
         return CompletableFuture.supplyAsync(() -> {
             final ClientPingServerEvent pingEvent = new SpongePingEventImpl(server);
             server.game().eventManager().post(pingEvent);
             return LegacyComponentSerializer.legacySection().serialize(pingEvent.response().description());
-        });
+        }, executor);
     }
 }

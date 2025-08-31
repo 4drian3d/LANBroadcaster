@@ -6,10 +6,11 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public final class PaperMOTDProvider implements MOTDProvider {
     @Override
-    public CompletableFuture<String> provideMOTD() {
+    public CompletableFuture<String> provideMOTD(final ExecutorService executor) {
         final PaperServerListPingEvent pingEvent = new PaperServerListPingEvent(
             new LANStatusClient(),
                 Bukkit.getServer().motd(),
@@ -22,6 +23,6 @@ public final class PaperMOTDProvider implements MOTDProvider {
         return CompletableFuture.supplyAsync(() -> {
             pingEvent.callEvent();
             return LegacyComponentSerializer.legacySection().serialize(pingEvent.motd());
-        });
+        }, executor);
     }
 }
