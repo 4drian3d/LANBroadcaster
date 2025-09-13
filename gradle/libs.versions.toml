@@ -3,7 +3,7 @@ metadata.format.version = "1.1"
 [versions]
 
 velocity = "3.4.0-SNAPSHOT"
-kotlin="2.2.10"
+kotlin="2.2.20"
 paper = "1.20.1-R0.1-SNAPSHOT"
 runtask = "2.3.1"
 plugin-yml = "0.6.0"
