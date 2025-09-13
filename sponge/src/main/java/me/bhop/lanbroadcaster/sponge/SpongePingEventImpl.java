@@ -18,7 +18,7 @@ public class SpongePingEventImpl implements ClientPingServerEvent {
     private final LANStatusClient statusClient;
     private final LANResponse lanResponse;
 
-    public SpongePingEventImpl(Server server) {
+    public SpongePingEventImpl(final Server server) {
         this.statusClient = new LANStatusClient(
                 server.boundAddress().orElse(InetSocketAddress.createUnresolved("localhost", 25565)),
                 server.game().platform().minecraftVersion()
@@ -42,7 +42,6 @@ public class SpongePingEventImpl implements ClientPingServerEvent {
 
     @Override
     public void setCancelled(boolean cancel) {
-
     }
 
     @Override
@@ -81,7 +80,6 @@ public class SpongePingEventImpl implements ClientPingServerEvent {
 
         @Override
         public void setHidePlayers(boolean hide) {
-
         }
 
         @Override

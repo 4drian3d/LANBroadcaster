@@ -4,12 +4,7 @@ import org.apache.logging.log4j.Logger;
 
 import me.bhop.lanbroadcaster.common.logger.AbstractLogger;
 
-public class Log4JLogger implements AbstractLogger {
-    private final Logger logger;
-
-    public Log4JLogger(Logger logger) {
-        this.logger = logger;
-    }
+public record Log4JLogger(Logger logger) implements AbstractLogger {
 
     @Override
     public void info(String string) {

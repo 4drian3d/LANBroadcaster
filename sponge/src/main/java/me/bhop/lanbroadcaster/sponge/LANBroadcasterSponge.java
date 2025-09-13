@@ -11,36 +11,30 @@ import org.spongepowered.api.event.lifecycle.StartedEngineEvent;
 import org.spongepowered.api.event.lifecycle.StoppingEngineEvent;
 import org.spongepowered.plugin.builtin.jvm.Plugin;
 
-import java.net.InetSocketAddress;
-import java.util.Optional;
-
 @Plugin("lanbroadcaster")
 public class LANBroadcasterSponge {
     private LANBroadcaster broadcaster;
     private final AbstractLogger logger;
 
     @Inject
-    public LANBroadcasterSponge(Logger logger) {
+    public LANBroadcasterSponge(final Logger logger) {
         this.logger = new Log4JLogger(logger);
     }
 
     @Listener
-    public void onPreInit(StartedEngineEvent<Server> event) {
+    public void onPreInit(final StartedEngineEvent<Server> event) {
         final Server server = event.engine();
-        final Optional<InetSocketAddress> optional = server.boundAddress();
-        if (optional.isEmpty()) {
-            return;
-        }
-        final InetSocketAddress in = optional.get();
-        try {
-            this.broadcaster = LANBroadcaster.initialize(
-                    in.getPort(),
-                    new SpongeMOTDProvider(server),
-                    logger);
-            this.broadcaster.schedule();
-        } catch (Exception e) {
-            logger.error("LANBroadcaster could not be initialized.", e);
-        }
+        server.boundAddress().ifPresent(in -> {
+            try {
+                this.broadcaster = LANBroadcaster.initialize(
+                        in.getPort(),
+                        new SpongeMOTDProvider(server),
+                        logger);
+                this.broadcaster.schedule();
+            } catch (Exception e) {
+                logger.error("LANBroadcaster could not be initialized.", e);
+            }
+        });
     }
 
     @Listener

@@ -3,12 +3,7 @@ package me.bhop.lanbroadcaster.common.logger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class JavaLogger implements AbstractLogger {
-    private final Logger logger;
-
-    public JavaLogger(Logger logger) {
-        this.logger = logger;
-    }
+public record JavaLogger(Logger logger) implements AbstractLogger {
 
     @Override
     public void info(String string) {

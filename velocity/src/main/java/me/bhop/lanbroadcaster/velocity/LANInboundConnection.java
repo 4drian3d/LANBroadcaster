@@ -11,7 +11,7 @@ import java.util.Optional;
 public final class LANInboundConnection implements InboundConnection {
     @Override
     public InetSocketAddress getRemoteAddress() {
-        return null;
+        return InetSocketAddress.createUnresolved("localhost", 25565);
     }
 
     @Override

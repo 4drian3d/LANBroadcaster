@@ -24,7 +24,7 @@ public class LANBroadcasterVelocity {
     private LANBroadcaster broadcaster;
 
     @Inject
-    public LANBroadcasterVelocity(ProxyServer proxyServer, Logger logger) {
+    public LANBroadcasterVelocity(final ProxyServer proxyServer, final Logger logger) {
         this.proxyServer = proxyServer;
         this.logger = new SLF4JLogger(logger);
     }
