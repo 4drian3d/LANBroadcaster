@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     implementation(projects.lanbroadcasterLog4j)
-    compileOnly("net.raphimc:ViaProxy:3.4.4")
+    compileOnly(libs.viaproxy)
 }
 
 tasks {
@@ -21,6 +21,9 @@ tasks {
         filesMatching("viaproxy.yml") {
             expand("version" to project.version)
         }
+    }
+    shadowJar {
+        archiveFileName.set("LanBroadcasterViaProxy-${project.version}.jar")
     }
 }
 
