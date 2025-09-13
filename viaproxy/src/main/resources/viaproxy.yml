@@ -1,0 +1,5 @@
+name: "LANBroadcaster"
+version: "${version}"
+author: "4drian3d"
+main: "me.bhop.lanbroadcaster.viaproxy.LANBroadcasterViaProxy"
+min-version: "3.0.0"
