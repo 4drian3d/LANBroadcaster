@@ -6,6 +6,8 @@ repositories {
     mavenCentral()
 }
 
-tasks.compileJava {
-    options.encoding = Charsets.UTF_8.name()
+tasks{
+    compileJava {
+        options.encoding = Charsets.UTF_8.name()
+    }
 }

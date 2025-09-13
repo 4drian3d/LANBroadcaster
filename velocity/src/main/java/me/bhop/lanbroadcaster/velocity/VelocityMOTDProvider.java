@@ -20,6 +20,8 @@ public record VelocityMOTDProvider(
                 new LANInboundConnection(),
                 ServerPing.builder()
                         .description(proxyServer.getConfiguration().getMotd())
+                        .notModCompatible()
+                        .nullPlayers()
                         .build()
         );
         return proxyServer.getEventManager()
