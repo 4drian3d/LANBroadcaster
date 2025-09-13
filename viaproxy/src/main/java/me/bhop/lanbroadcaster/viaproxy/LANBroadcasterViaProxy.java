@@ -16,12 +16,16 @@ public final class LANBroadcasterViaProxy extends ViaProxyPlugin {
 
     @Override
     public void onEnable() {
+        ViaProxy.EVENT_MANAGER.register(new ViaProxyListener(this));
+    }
+
+    public void loadLanBroadcaster() {
         try {
             final ViaProxyConfig proxyConfig = ViaProxy.getConfig();
             if (proxyConfig.getBindAddress() instanceof final InetSocketAddress address) {
                 this.broadcaster = LANBroadcaster.initialize(
                         address.getPort(),
-                       executor -> CompletableFuture.completedFuture(proxyConfig.getCustomMotd()),
+                        executor -> CompletableFuture.completedFuture(proxyConfig.getCustomMotd()),
                         logger);
                 this.broadcaster.schedule();
             } else {
@@ -33,8 +37,7 @@ public final class LANBroadcasterViaProxy extends ViaProxyPlugin {
         }
     }
 
-    @Override
-    public void onDisable() {
+    public void disableLanBroadcaster() {
         if (this.broadcaster != null) {
             this.broadcaster.shutdown();
             this.broadcaster = null;
