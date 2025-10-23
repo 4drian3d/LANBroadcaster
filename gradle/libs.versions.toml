@@ -3,15 +3,15 @@ metadata.format.version = "1.1"
 [versions]
 
 velocity = "3.4.0-SNAPSHOT"
-kotlin="2.2.20"
+kotlin="2.2.21"
 paper = "1.20.1-R0.1-SNAPSHOT"
-runtask = "3.0.0"
+runtask = "3.0.2"
 plugin-yml = "0.6.0"
-blossom = "2.1.0"
+blossom = "2.2.0"
 sponge-api = "14.0.0"
 sponge-gradle = "2.3.0"
-shadow = "9.1.0"
-log4j = "2.25.1"
+shadow = "9.2.2"
+log4j = "2.25.2"
 slf4j = "2.0.17"
 
 [libraries]
@@ -22,7 +22,7 @@ plugin-kotlin =  { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version
 
 velocity = { group  = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }
 paper  = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
-viaproxy = { module = "net.raphimc:ViaProxy", version = "3.4.4" }
+viaproxy = { module = "net.raphimc:ViaProxy", version = "3.4.5" }
 
 log4j = { group = "org.apache.logging.log4j", name = "log4j-core", version.ref = "log4j" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
