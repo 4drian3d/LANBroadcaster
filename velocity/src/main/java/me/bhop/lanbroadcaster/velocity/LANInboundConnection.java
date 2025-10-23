@@ -8,39 +8,45 @@ import com.velocitypowered.api.proxy.InboundConnection;
 import java.net.InetSocketAddress;
 import java.util.Optional;
 
-public final class LANInboundConnection implements InboundConnection {
-    @Override
-    public InetSocketAddress getRemoteAddress() {
-        return InetSocketAddress.createUnresolved("localhost", 25565);
-    }
+import static java.util.Objects.requireNonNull;
 
-    @Override
-    public Optional<InetSocketAddress> getVirtualHost() {
-        return Optional.empty();
-    }
+public record LANInboundConnection(InetSocketAddress inetSocketAddress) implements InboundConnection {
+  public LANInboundConnection {
+    requireNonNull(inetSocketAddress);
+  }
 
-    @Override
-    public Optional<String> getRawVirtualHost() {
-        return Optional.empty();
-    }
+  @Override
+  public InetSocketAddress getRemoteAddress() {
+    return inetSocketAddress;
+  }
 
-    @Override
-    public boolean isActive() {
-        return true;
-    }
+  @Override
+  public Optional<InetSocketAddress> getVirtualHost() {
+    return Optional.empty();
+  }
 
-    @Override
-    public ProtocolVersion getProtocolVersion() {
-        return ProtocolVersion.MAXIMUM_VERSION;
-    }
+  @Override
+  public Optional<String> getRawVirtualHost() {
+    return Optional.empty();
+  }
 
-    @Override
-    public ProtocolState getProtocolState() {
-        return ProtocolState.HANDSHAKE;
-    }
+  @Override
+  public boolean isActive() {
+    return true;
+  }
 
-    @Override
-    public HandshakeIntent getHandshakeIntent() {
-        return HandshakeIntent.STATUS;
-    }
+  @Override
+  public ProtocolVersion getProtocolVersion() {
+    return ProtocolVersion.MAXIMUM_VERSION;
+  }
+
+  @Override
+  public ProtocolState getProtocolState() {
+    return ProtocolState.HANDSHAKE;
+  }
+
+  @Override
+  public HandshakeIntent getHandshakeIntent() {
+    return HandshakeIntent.STATUS;
+  }
 }

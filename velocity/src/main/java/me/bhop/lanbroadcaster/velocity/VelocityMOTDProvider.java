@@ -2,6 +2,7 @@ package me.bhop.lanbroadcaster.velocity;
 
 import com.velocitypowered.api.event.EventManager;
 import com.velocitypowered.api.event.proxy.ProxyPingEvent;
+import com.velocitypowered.api.proxy.InboundConnection;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.proxy.server.ServerPing;
 import me.bhop.lanbroadcaster.common.MOTDProvider;
@@ -12,12 +13,13 @@ import java.util.concurrent.ExecutorService;
 
 public record VelocityMOTDProvider(
         ProxyServer proxyServer,
-        EventManager eventManager
+        EventManager eventManager,
+        InboundConnection inboundConnection
 ) implements MOTDProvider {
     @Override
     public CompletableFuture<String> provideMOTD(final ExecutorService executor) {
         final ProxyPingEvent pingEvent = new ProxyPingEvent(
-                new LANInboundConnection(),
+                inboundConnection,
                 ServerPing.builder()
                         .description(proxyServer.getConfiguration().getMotd())
                         .notModCompatible()
@@ -26,7 +28,7 @@ public record VelocityMOTDProvider(
         );
         return proxyServer.getEventManager()
                 .fire(pingEvent)
-                .thenApplyAsync(event -> LegacyComponentSerializer.legacySection().serialize(
+                .thenApplyAsync(event -> LegacyComponentSerializer.legacySection().serializeOrNull(
                             event.getResult().isAllowed()
                                     ? event.getPing().getDescriptionComponent()
                                     : proxyServer.getConfiguration().getMotd())
