@@ -22,7 +22,7 @@ plugin-kotlin =  { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version
 
 velocity = { group  = "com.velocitypowered", name = "velocity-api", version.ref = "velocity" }
 paper  = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
-viaproxy = { module = "net.raphimc:ViaProxy", version = "3.4.7" }
+viaproxy = { module = "net.raphimc:ViaProxy", version = "3.4.8" }
 
 log4j = { group = "org.apache.logging.log4j", name = "log4j-core", version.ref = "log4j" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
