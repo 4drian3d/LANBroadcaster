@@ -36,4 +36,4 @@ pluginyml-paper = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugi
 sponge-gradle = { id = "org.spongepowered.gradle.plugin", version.ref = "sponge-gradle" }
 
 blossom = { id = "net.kyori.blossom", version.ref = "blossom" }
-idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.4" }
+idea-ext = { id = "org.jetbrains.gradle.plugin.idea-ext", version = "1.4.1" }
